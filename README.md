@@ -1,1 +1,279 @@
-# ai
+<html lang="zh-CN">
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Qing.晴的个人主页</title> 
+  <style>
+        /* 全局样式：适配手机+背景 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: url('IMG_20250708_020931.png') no-repeat center/cover; 
+            min-height: 100vh;
+            font-family: sans-serif;
+            color: #333;
+            padding: 20px 0;
+        }
+
+        /* 顶部个人信息：玻璃卡片 */
+        .profile-card {
+            width: 90%; max-width: 400px;
+            padding: 20px; margin: 30px auto;
+            border-radius: 16px;
+            backdrop-filter: blur(10px); /* 毛玻璃核心 */
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        .profile-card img {
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            border: 3px solid rgba(255,255,255,0.8);
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+        .profile-card img:hover {
+            transform: scale(1.05);
+        }
+        .profile-card h2 { font-size: 1.5rem; margin-bottom: 8px; color: #fff; }
+        .profile-card p { color: #fff; opacity: 0.9; }
+
+        /* 音乐开关按钮（玻璃质感） */
+        #musicBtn {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        #musicBtn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.05);
+        }
+        #musicBtn:active {
+            transform: scale(0.98);
+        }
+
+        /* 公告卡片样式 */
+        .announcement-card {
+            width: 90%; max-width: 400px;
+            padding: 20px; margin: 20px auto;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .announcement-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd);
+            background-size: 400% 400%;
+            animation: gradient 3s ease infinite;
+        }
+        
+        .announcement-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        
+        .announcement-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+            color: #fff;
+        }
+        
+        .announcement-title {
+            font-size: 1.2rem;
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .announcement-content {
+            color: #fff;
+            font-size: 1rem;
+            line-height: 1.5;
+            padding: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        /* 链接按钮列表：玻璃质感 */
+        .links-container {
+            width: 90%; max-width: 400px;
+            margin: 0 auto 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            margin: 10px 0;
+            border-radius: 8px;
+            backdrop-filter: blur(8px); /* 按钮毛玻璃 */
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .link-item:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.03);
+        }
+        .link-item img {
+            width: 24px; height: 24px;
+            margin-right: 10px;
+        }
+        .link-item span { flex: 1; margin-left: 10px; }
+
+        /* 动画效果 */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* 手机端适配 */
+        @media (max-width: 480px) {
+            .profile-card, .links-container, .announcement-card {
+                width: 95%;
+            }
+            .link-item, #musicBtn {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style> 
+  <script src="js/jq.js"></script> 
+ </head> 
+ <body id="v1"> 
+  <!-- 顶部个人信息卡片 --> 
+  <div id="v2" class="profile-card fade-in" style="opacity: 1; transform: translateY(0px);"> 
+   <img id="v3" src="mmexport1754134112937.jpeg" alt="头像"> 
+   <h2 id="v4">Qing.晴</h2> 
+   <p id="v5">在等天晴-也在等你</p> 
+   <!-- 音乐开关按钮 --> 
+   <button id="musicBtn">播放音乐 🎵</button> 
+  </div> 
+  <!-- 公告卡片 --> 
+  <div id="v6" class="announcement-card fade-in" style="opacity: 1; transform: translateY(0px);"> 
+   <div id="v7" class="announcement-header"> 
+    <div id="v8" class="announcement-icon">
+      🖤
+    </div> 
+    <div id="v9" class="announcement-title">留言 
+    </div> 
+   </div> 
+   <div id="v10" class="announcement-content">
+     等天晴也好 - 顺其自然也罢 
+   </div> 
+   <div id="v11" class="announcement-content">
+     等雨停后也不一定就是晴天 
+   </div> 
+  </div>
+  <!-- 公告卡片2 -->
+  <div id="announcement2" class="announcement-card fade-in" style="opacity: 1; transform: translateY(0px);"> 
+   <div class="announcement-header"> 
+    <div class="announcement-icon">
+      ❤️
+    </div> 
+    <div class="announcement-title">联系方式
+    </div> 
+   </div> 
+   <div class="announcement-content">
+    QQ:3044947120
+   </div> 
+      <div class="announcement-content">
+    VX:TDAQINgNing
+   </div> 
+  </div>
+  <!-- 音乐播放核心（隐藏的音频标签） --> 
+  <audio id="bgMusic" src="室内系的TrackMaker - hanser.mp3" loop="" muted="">
+    您的浏览器不支持音频播放 
+  </audio> 
+  <script>
+        // 音乐控制脚本
+        const audio = document.getElementById('bgMusic');
+        let isPlaying = false;
+        const musicBtn = document.getElementById('musicBtn');
+
+        // 点击按钮切换播放/暂停
+        function toggleMusic() {
+            if (isPlaying) {
+                // 暂停音乐
+                audio.pause();
+                musicBtn.innerText = '播放音乐 🎵';
+            } else {
+                // 播放音乐（先关闭静音）
+                audio.muted = false;
+                audio.play().then(() => {
+                    musicBtn.innerText = '暂停音乐 ⏸️';
+                }).catch(err => {
+                    // 浏览器拦截时，提示用户再点一次（用户交互后通常会允许）
+                    alert('请再点一次播放按钮～');
+                    audio.play();
+                    musicBtn.innerText = '暂停音乐 ⏸️';
+                });
+            }
+            isPlaying = !isPlaying;
+        }
+        
+        // 绑定音乐按钮点击事件
+        musicBtn.addEventListener('click', toggleMusic);
+        
+        // 添加页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>  
+ </body>
+</html>
